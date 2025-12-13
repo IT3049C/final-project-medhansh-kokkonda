@@ -1,6 +1,202 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* -------------------------------------------------------
+   GLOBAL RESET + THEME
+------------------------------------------------------- */
+
+:root {
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #1b1b1b;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------
+   FROSTED CARD (used everywhere)
+------------------------------------------------------- */
+
+.frosted-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 32px;
+  border-radius: 20px;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Fade-in animation for all screens */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0px); }
+}
+
+/* -------------------------------------------------------
+   BUTTONS
+------------------------------------------------------- */
+
+button {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.20);
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------------------
+   PAGE LAYOUT
+------------------------------------------------------- */
+
+.page-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* -------------------------------------------------------
+   WORDLE GRID
+------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  gap: 8px;
+  justify-content: center;
+}
+
+/* Base tile */
+.tile {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.12);
+  font-size: 1.6rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.15s ease;
+  animation: pop 0.15s ease;
+}
+
+/* Color states */
+.tile.correct {
+  background: #6aaa64;
+}
+
+.tile.present {
+  background: #c9b458;
+}
+
+.tile.absent {
+  background: #3a3a3c;
+}
+
+/* Bounce animation */
+@keyframes pop {
+  0% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+
+/* Shake animation */
+.shake {
+  animation: shakeAnim 0.4s ease;
+}
+
+@keyframes shakeAnim {
+  0% { transform: translateX(0px); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+  100% { transform: translateX(0px); }
+}
+
+/* -------------------------------------------------------
+   INPUTS
+------------------------------------------------------- */
+
+input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-size: 1rem;
+}
+
+/* -------------------------------------------------------
+   LIGHT THEME OVERRIDES
+------------------------------------------------------- */
+
+.light-mode {
+  color: #222;
+  background-color: #ffffff;
+}
+
+.light-mode .frosted-card {
+  background: rgba(255,255,255,0.7);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.light-mode button {
+  background: rgba(0,0,0,0.05);
+  color: black;
+}
+
+.light-mode .tile {
+  background: rgba(0,0,0,0.1);
+  color: black;
+}
+
+.light-mode .tile.correct {
+  background: #6aaa64;
+  color: white;
+}
+
+.light-mode .tile.present {
+  background: #c9b458;
+  color: white;
+}
+
+.light-mode .tile.absent {
+  background: #3a3a3c;
+  color: white;
+}
+

@@ -1,68 +1,158 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+/* ==== GLOBAL RESET & TYPOGRAPHY ==== */
+html,
+body,
+#root {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ==== THEME WRAPPER (from ThemeProvider) ==== */
+.light-mode,
+.dark-mode {
   min-height: 100vh;
+  width: 100%;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Light theme background */
+.light-mode {
+  background: radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 50%, #d1d5db 100%);
+  color: #111827;
 }
 
+/* Dark theme background */
+.dark-mode {
+  background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000000 100%);
+  color: #f1f5f9;
+}
+
+/* Links inherit color */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Generic buttons */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  font-size: 0.95rem;
+  padding: 0.45rem 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease,
+    background-color 0.18s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.light-mode button {
+  background: rgba(255, 255, 255, 0.85);
+  color: #000000;
+}
+
+.dark-mode button {
+  background: rgba(30, 41, 59, 0.9);
+  color: #f9fafb;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.35);
+  border-color: #6366f1;
+}
+
+/* ==== PAGE LAYOUT ==== */
+
+.page-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 16px 80px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Frosted glass panel used by hub + games */
+.frosted-card {
+  width: 100%;
+  max-width: 720px;
+  padding: 28px 26px 30px;
+  border-radius: 24px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.45);
+}
+
+/* ==== WORDLE TILES & ANIMATIONS ==== */
+
+.tile {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  border: 2px solid #4b5563;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  box-sizing: border-box;
+}
+
+.tile.gray {
+  background-color: #3a3a3c;
+  color: #f9fafb;
+}
+
+.tile.green {
+  background-color: #538d4e;
+  color: #f9fafb;
+}
+
+.tile.gold {
+  background-color: #b59f3b;
+  color: #f9fafb;
+}
+
+/* Bounce when a letter is typed */
+@keyframes bounce {
+  0% {
+    transform: scale(1);
   }
-  a:hover {
-    color: #747bff;
+  50% {
+    transform: scale(1.12);
   }
-  button {
-    background-color: #f9f9f9;
+  100% {
+    transform: scale(1);
   }
+}
+
+.tile.bounce {
+  animation: bounce 0.2s ease-out;
+}
+
+/* Shake row when invalid / not enough letters */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+  75% {
+    transform: translateX(-6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake-row {
+  animation: shake 0.35s ease;
 }
